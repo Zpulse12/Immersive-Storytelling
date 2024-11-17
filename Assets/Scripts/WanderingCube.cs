@@ -73,18 +73,23 @@ public class WanderingCube : MonoBehaviour
         Vector3 fleeDirection = (transform.position - player.position).normalized;
         Vector3 fleePosition = transform.position + fleeDirection * safeDistance;
 
+        Debug.Log($"{gameObject.name}: MoveAwayFromPlayer gestart, probeer weg te bewegen!");
+
         Debug.Log($"FleeDirection: {fleeDirection}, FleePosition: {fleePosition}");
 
-        if (NavMesh.SamplePosition(fleePosition, out NavMeshHit hit, checkRadius, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(fleePosition, out NavMeshHit hit, checkRadius * 2, NavMesh.AllAreas))
         {
             Debug.Log($"NavMesh Hit Position: {hit.position}");
             agent.SetDestination(hit.position);
+            Debug.Log($"{gameObject.name}: Nieuwe bestemming ingesteld naar {hit.position}");
         }
         else
         {
             Debug.LogWarning("Geen valide NavMesh-positie gevonden!");
         }
     }
+
+
 
 
     private void StopMoving()
