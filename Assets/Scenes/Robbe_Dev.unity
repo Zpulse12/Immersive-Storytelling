@@ -461,7 +461,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 327027447}
-  - component: {fileID: 327027446}
+  - component: {fileID: 327027448}
   m_Layer: 0
   m_Name: SoundController
   m_TagString: Untagged
@@ -469,27 +469,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &327027446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 327027445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d5c1a773def4c94ca096984e7ddd26f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundClips:
-  - {fileID: 8300000, guid: 202e37069f8e8694086c05bab8c59af3, type: 3}
-  - {fileID: 8300000, guid: 29706a6a8fee3bd4d86ebe3d58049563, type: 3}
-  maxVolume: 1
-  maxFrequency: 1
-  minDistance: 2
-  maxDistance: 5
-  baseTimeBetweenSounds: 1
-  soundRadius: 10
 --- !u!4 &327027447
 Transform:
   m_ObjectHideFlags: 0
@@ -505,6 +484,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &327027448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327027445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d5c1a773def4c94ca096984e7ddd26f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundClips:
+  - {fileID: 8300000, guid: 202e37069f8e8694086c05bab8c59af3, type: 3}
+  - {fileID: 8300000, guid: 29706a6a8fee3bd4d86ebe3d58049563, type: 3}
+  - {fileID: 8300000, guid: 05a64bd298b57504388c78a50fb2ab46, type: 3}
+  maxVolume: 1
+  minDistance: 5
+  maxDistance: 6.91
+  timeMultiplier: 0.5
+  minTimeBetweenSounds: 1
+  soundRadius: 10
 --- !u!1 &555464743
 GameObject:
   m_ObjectHideFlags: 0
@@ -1276,7 +1277,7 @@ GameObject:
   - component: {fileID: 899068099}
   m_Layer: 0
   m_Name: TARGET
-  m_TagString: Untagged
+  m_TagString: Person
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
