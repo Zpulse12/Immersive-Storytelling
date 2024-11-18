@@ -12,12 +12,13 @@ public class Reality : MonoBehaviour
 
     private List<string> realityMessages = new List<string>
     {
-        "Je denkt misschien dat iedereen op je let, maar de waarheid is dat de meeste mensen bezig zijn met hun eigen zorgen...",
-        "Mensen zien vaak niet eens wat je doet, omdat ze druk zijn met hun eigen leven...",
-        "Het voelt misschien alsof iedereen je beoordeelt, maar de meeste mensen denken nauwelijks na over wat je doet...",
-        "Je maakt je waarschijnlijk te veel zorgen over de mening van anderen, terwijl ze het niet eens opmerken...",
-        "De realiteit is dat de meeste mensen te druk zijn met hun eigen gedachten om zich met jou bezig te houden..."
+        "Mensen letten niet op jou, ze zijn bezig met hun eigen zorgen...",
+        "Mensen zien vaak niet wat je doet, ze zijn druk met hun leven...",
+        "Mensen beoordelen je niet, ze denken nauwelijks over je na...",
+        "Anderen merken je niet eens op, je zorgen zijn waarschijnlijk onnodig...",
+        "Mensen zijn te druk met zichzelf om zich met jou bezig te houden..."
     };
+
 
     private Coroutine messageCoroutine;
     private bool messageIsDisplaying = false;

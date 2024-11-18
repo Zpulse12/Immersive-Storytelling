@@ -32,7 +32,7 @@ public class ApproachSoundManager : MonoBehaviour
         player = Camera.main.transform; 
 
         // Find all objects with the "Person" tag
-        personObjects = GameObject.FindGameObjectsWithTag("Person");
+        personObjects = GameObject.FindGameObjectsWithTag("Human");
 
         if (personObjects.Length == 0)
         {

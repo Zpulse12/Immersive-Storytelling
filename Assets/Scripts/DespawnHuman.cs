@@ -6,9 +6,12 @@ using UnityEngine.UI;
 public class DespawnHuman : MonoBehaviour
 {
     public Transform player;
-    public float safeDistance = 3f;  
-    public Text messageText; 
-    public float messageDisplayTime = 3f; 
+    public float safeDistance = 3f;
+    public Text messageText;
+    public float messageDisplayTime = 3f;
+
+    private bool messageIsDisplaying = false;
+    private bool hasDespawned = false;
 
     private List<string> depressionMessages = new List<string>
     {
@@ -36,9 +39,8 @@ public class DespawnHuman : MonoBehaviour
 
     void Update()
     {
-        if (player == null)
+        if (player == null || hasDespawned)
         {
-            Debug.LogWarning("Player ontbreekt!");
             return;
         }
 
@@ -54,9 +56,14 @@ public class DespawnHuman : MonoBehaviour
 
     private void DespawnCube()
     {
+        if (hasDespawned)
+        {
+            return;
+        }
+
+        hasDespawned = true;
         Debug.Log($"{gameObject.name}: Speler te dichtbij! Kubus despawnt.");
         DisplayDepressionMessage();
-        Destroy(gameObject);
     }
 
     private void DisplayDepressionMessage()
@@ -67,6 +74,7 @@ public class DespawnHuman : MonoBehaviour
             {
                 StopCoroutine(messageCoroutine);
             }
+
             string message = depressionMessages[Random.Range(0, depressionMessages.Count)];
             messageCoroutine = StartCoroutine(DisplayMessageCoroutine(message));
         }
@@ -74,10 +82,18 @@ public class DespawnHuman : MonoBehaviour
 
     private IEnumerator DisplayMessageCoroutine(string message)
     {
+        messageIsDisplaying = true;
         messageText.text = message;
+        Debug.Log("Start displaying message: " + message);
         yield return new WaitForSeconds(messageDisplayTime);
         messageText.text = "";
+        Debug.Log("Message cleared after waiting: " + messageDisplayTime);
+        messageIsDisplaying = false;
+
+        // Vernietig het object nadat het bericht is weergegeven
+        Destroy(gameObject);
     }
+
 }
 
 
