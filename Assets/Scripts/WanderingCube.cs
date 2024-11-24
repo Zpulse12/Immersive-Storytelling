@@ -21,13 +21,11 @@ public class WanderingCube : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         if (agent == null)
         {
-            Debug.LogError("NavMeshAgent niet gevonden op " + gameObject.name);
             return;
         }
 
         if (player == null)
         {
-            Debug.LogError("Player Transform is niet toegewezen!");
         }
 
         agent.speed = moveSpeed;
@@ -38,7 +36,6 @@ public class WanderingCube : MonoBehaviour
     {
         if (agent == null || player == null)
         {
-            Debug.LogWarning("NavMeshAgent of Player ontbreekt!");
             return;
         }
 
@@ -51,7 +48,6 @@ public class WanderingCube : MonoBehaviour
 
         if (distanceToPlayer < safeDistance && !isMovingAway)
         {
-            Debug.Log($"{gameObject.name}: Speler te dichtbij! Weg bewegen.");
             MoveAwayFromPlayer();
         }
         else if (isMovingAway && distanceToPlayer > stopDistance)
