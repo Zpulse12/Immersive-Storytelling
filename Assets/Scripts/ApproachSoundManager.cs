@@ -36,7 +36,7 @@ public class ApproachSoundManager : MonoBehaviour
 
         if (personObjects.Length == 0)
         {
-            Debug.LogError("No GameObjects with the 'Person' tag found in the scene.");
+            Debug.LogWarning("No GameObjects with the 'Human' tag found in the scene.");
         }
     }
 
