@@ -7,12 +7,14 @@ public class SpawnSpotlight : MonoBehaviour
     public Light spotlightPrefab;
 
     [Header("Spawn Settings")]
+    public bool spawnAroundPlayer = true;
     public float spawnAreaWidth = 10f;
     public float spawnAreaLength = 10f;
     public float spotlightHeight = 5f;
     public bool autoRespawn = true;
     public float respawnDelay = 2f;
     public float characterHeight = 0f;
+    public Vector3 characterScale = Vector3.one;
 
     [Header("Spotlight Settings")]
     public float spotlightIntensity = 8f;
@@ -44,9 +46,13 @@ public class SpawnSpotlight : MonoBehaviour
 
         float randomX = Random.Range(-spawnAreaWidth / 2, spawnAreaWidth / 2);
         float randomZ = Random.Range(-spawnAreaLength / 2, spawnAreaLength / 2);
-        Vector3 spawnPosition = new Vector3(randomX, characterHeight, randomZ);
+        
+        Vector3 basePosition = spawnAroundPlayer ? player.position : transform.position;
+        Vector3 spawnPosition = basePosition + new Vector3(randomX, characterHeight, randomZ);
 
         GameObject character = Instantiate(characterPrefab, spawnPosition, Quaternion.identity);
+        character.transform.localScale = characterScale;
+        
         Light spotlight = Instantiate(spotlightPrefab);
         
         spotlight.intensity = spotlightIntensity;
