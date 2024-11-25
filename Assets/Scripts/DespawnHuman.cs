@@ -10,7 +10,6 @@ public class DespawnHuman : MonoBehaviour
     public Text messageText;
     public float messageDisplayTime = 3f;
 
-    private bool messageIsDisplaying = false;
     private bool hasDespawned = false;
 
     private List<string> depressionMessages = new List<string>
@@ -82,13 +81,11 @@ public class DespawnHuman : MonoBehaviour
 
     private IEnumerator DisplayMessageCoroutine(string message)
     {
-        messageIsDisplaying = true;
         messageText.text = message;
         Debug.Log("Start displaying message: " + message);
         yield return new WaitForSeconds(messageDisplayTime);
         messageText.text = "";
         Debug.Log("Message cleared after waiting: " + messageDisplayTime);
-        messageIsDisplaying = false;
 
         // Vernietig het object nadat het bericht is weergegeven
         Destroy(gameObject);
