@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 6385261298803684091}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.93, y: 0.55, z: 1.91}
+  m_LocalPosition: {x: -63.7, y: -0.13, z: -69.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44,18 +44,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87dfb03fb1cf5a043b6eba37b0f07b6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 8463791193022686988, guid: 30375870d69e02c49ae71dbf89755242, type: 3}
+  npcPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
   spotlightPrefab: {fileID: 0}
-  spawnAreaWidth: 10
-  spawnAreaLength: 10
-  spotlightHeight: 10
+  spawnAroundPlayer: 0
+  spawnAreaWidth: 30
+  spawnAreaLength: 30
+  spotlightHeight: 11
   autoRespawn: 1
   respawnDelay: 2
-  characterHeight: 0.25
-  spotlightIntensity: 10
-  spotlightRange: 15
-  spotAngle: 20
-  spotlightColor: {r: 1, g: 1, b: 1, a: 1}
-  despawnDistance: 1
-  despawnDelay: 10
+  characterHeight: 0.1
+  characterScale: {x: 1.5, y: 1.5, z: 1.5}
+  spotlightIntensity: 5
+  spotlightRange: 100
+  spotAngle: 30
+  spotlightColor: {r: 0.9433962, g: 0.8071153, b: 0.28034887, a: 1}
+  cylinderHeight: 1000
+  cylinderRadius: 5
+  cylinderMaterial: {fileID: 2100000, guid: 21ea7ca5fb0b261438fa56ebf80c6cb8, type: 2}
+  despawnDistance: 3
+  despawnDelay: 5
   player: {fileID: 0}
