@@ -3,7 +3,9 @@ using System.Collections;
 
 public class SpawnSpotlight : MonoBehaviour
 {
-    public GameObject characterPrefab;
+    public GameObject[] npcPrefabs; // Array van verschillende NPC prefabs
+    private int currentPrefabIndex = 0; // Bijhouden welke prefab als volgende komt
+
     public Light spotlightPrefab;
 
     [Header("Spawn Settings")]
@@ -55,9 +57,12 @@ public class SpawnSpotlight : MonoBehaviour
         Vector3 basePosition = spawnAroundPlayer ? player.position : transform.position;
         Vector3 spawnPosition = basePosition + new Vector3(randomX, characterHeight, randomZ);
 
-        // Spawn character
-        GameObject character = Instantiate(characterPrefab, spawnPosition, Quaternion.identity);
+        // Kies een willekeurige prefab
+        int randomIndex = Random.Range(0, npcPrefabs.Length);
+        GameObject character = Instantiate(npcPrefabs[randomIndex], spawnPosition, Quaternion.identity);
         character.transform.localScale = characterScale;
+
+        Debug.Log($"Spawned prefab {randomIndex}");
 
         // Spawn spotlight
         Light spotlight = Instantiate(spotlightPrefab);
@@ -111,8 +116,6 @@ public class SpawnSpotlight : MonoBehaviour
         {
             float distance = Vector3.Distance(player.position, characterTransform.position);
 
-            Debug.Log($"Afstand tot character: {distance}, Despawn afstand: {despawnDistance}");
-
             if (distance <= despawnDistance)
             {
                 if (!startedDespawnTimer)
@@ -127,6 +130,21 @@ public class SpawnSpotlight : MonoBehaviour
                 if (despawnTimer >= despawnDelay)
                 {
                     Debug.Log("Despawning spotlight, character en cylinder");
+                    
+                    // Informeer de NPC voordat we de container vernietigen
+                    NPCBehavior npcBehavior = characterTransform.GetComponent<NPCBehavior>();
+                    if (npcBehavior != null)
+                    {
+                        Debug.Log("NPCBehavior gevonden, EnableWalking aanroepen");
+                        // Haal de NPC uit de container zodat die niet wordt vernietigd
+                        characterTransform.parent = null;
+                        npcBehavior.EnableWalking();
+                    }
+                    else
+                    {
+                        Debug.LogError("Geen NPCBehavior component gevonden op character!");
+                    }
+                    
                     Destroy(container);
                     if (autoRespawn)
                     {
@@ -164,5 +182,20 @@ public class SpawnSpotlight : MonoBehaviour
             Debug.Log("Muis geklikt");
             SpawnSpotlightWithCharacter();
         }
+    }
+
+    public void SpawnNPC(Vector3 position)
+    {
+        if (npcPrefabs == null || npcPrefabs.Length == 0)
+        {
+            Debug.LogError("Geen NPC prefabs toegewezen aan de SpawnSpotlight!");
+            return;
+        }
+
+        // Spawn de huidige prefab
+        GameObject spawnedNPC = Instantiate(npcPrefabs[currentPrefabIndex], position, Quaternion.identity);
+
+        // Update de index voor de volgende spawn
+        currentPrefabIndex = (currentPrefabIndex + 1) % npcPrefabs.Length;
     }
 }

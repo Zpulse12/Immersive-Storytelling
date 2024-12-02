@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: e3d639891a1a9bf4784d62842dc49a89
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - idleController: {fileID: 9100000, guid: 8b09a6f4963d94e47bc0a85776368e29, type: 2}
+  - walkController: {fileID: 9100000, guid: 718d0dcc44aa30346898747d8c7e496f, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
