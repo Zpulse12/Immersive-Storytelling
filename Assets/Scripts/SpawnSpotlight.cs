@@ -90,6 +90,8 @@ public class SpawnSpotlight : MonoBehaviour
         {
             Renderer cylinderRenderer = cylinder.GetComponent<Renderer>();
             cylinderRenderer.material = cylinderMaterial;
+            cylinderRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            cylinderRenderer.receiveShadows = false;
         }
 
         cylinder.transform.parent = container.transform;
