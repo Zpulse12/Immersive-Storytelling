@@ -11,12 +11,15 @@ public class ApproachSoundManager : MonoBehaviour
     public float timeMultiplier = 0.5f;
     public float minTimeBetweenSounds = 1f; 
     public float soundRadius = 10f;
-    public int poolSize = 10;
+    public int initialPoolSize = 10;
+    public int maxPoolSize = 50; // Limit to avoid excessive expansion
 
     private Transform player;
     private GameObject[] personObjects;
     private float nextSoundTime = 0f;
     private Queue<GameObject> soundPool;
+    private int currentPoolSize;
+    private AudioSource permanentAudioSource;  // Reference to PermanentAudioManager's AudioSource
 
     void Start()
     {
@@ -34,7 +37,8 @@ public class ApproachSoundManager : MonoBehaviour
             Debug.LogWarning("No GameObjects with the 'Human' tag found in the scene.");
         }
 
-        InitializeSoundPool();
+        InitializeSoundPool(initialPoolSize);
+        permanentAudioSource = FindObjectOfType<PermanentAudioManager>().GetComponent<AudioSource>(); // Get the PermanentAudioManager's AudioSource
     }
 
     void Update()
@@ -42,7 +46,7 @@ public class ApproachSoundManager : MonoBehaviour
         if (personObjects.Length == 0) return;
 
         float closestPersonDistance = float.MaxValue;
-        
+
         foreach (var person in personObjects)
         {
             float distanceToPerson = Vector3.Distance(player.position, person.transform.position);
@@ -51,6 +55,8 @@ public class ApproachSoundManager : MonoBehaviour
 
         float adjustedTimeBetweenSounds = Mathf.Lerp(minTimeBetweenSounds, timeMultiplier, Mathf.InverseLerp(minDistance, maxDistance, closestPersonDistance));
         AdjustVolume(closestPersonDistance);
+
+        AdjustPoolSize(closestPersonDistance);
 
         if (Time.time >= nextSoundTime)
         {
@@ -63,60 +69,83 @@ public class ApproachSoundManager : MonoBehaviour
     {
         float volume = Mathf.Lerp(maxVolume, 0, Mathf.InverseLerp(minDistance, maxDistance, distanceToPerson));
         AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+
         foreach (var audioSource in audioSources)
         {
-            audioSource.volume = volume;
+            // Ensure we're only adjusting audio sources that belong to the ApproachSoundManager
+            if (audioSource != permanentAudioSource)  // Exclude PermanentAudioManager's AudioSource
+            {
+                audioSource.volume = volume;
+            }
         }
     }
 
-    void InitializeSoundPool()
+    void InitializeSoundPool(int size)
     {
         soundPool = new Queue<GameObject>();
+        currentPoolSize = size;
 
-        for (int i = 0; i < poolSize; i++)
+        for (int i = 0; i < size; i++)
         {
-            // Create a sound object and deactivate it
-            GameObject soundObject = new GameObject("PooledSound");
-            AudioSource audioSource = soundObject.AddComponent<AudioSource>();
-            audioSource.spatialBlend = 1.0f; // Full 3D sound
-            audioSource.dopplerLevel = 0.0f;
-            audioSource.minDistance = minDistance;
-            audioSource.maxDistance = maxDistance;
-            soundObject.SetActive(false);
-            
-            soundPool.Enqueue(soundObject);
+            CreateSoundObject();
         }
+    }
+
+    void AdjustPoolSize(float closestDistance)
+    {
+        float normalizedDistance = 1 - Mathf.InverseLerp(minDistance, maxDistance, closestDistance);
+        float interpolatedPoolSize = Mathf.Lerp(initialPoolSize, maxPoolSize, normalizedDistance);
+        int targetPoolSize = Mathf.RoundToInt(interpolatedPoolSize);
+
+        if (targetPoolSize > currentPoolSize)
+        {
+            for (int i = currentPoolSize; i < targetPoolSize; i++)
+            {
+                CreateSoundObject();
+            }
+        }
+
+        currentPoolSize = targetPoolSize;
+    }
+
+    void CreateSoundObject()
+    {
+        GameObject soundObject = new GameObject("PooledSound");
+        AudioSource audioSource = soundObject.AddComponent<AudioSource>();
+        audioSource.spatialBlend = 1.0f;
+        audioSource.dopplerLevel = 0.0f;
+        audioSource.minDistance = minDistance;
+        audioSource.maxDistance = maxDistance;
+        soundObject.SetActive(false);
+        soundPool.Enqueue(soundObject);
     }
 
     void PlayRandomSounds()
     {
-        for (int i = 0; i < 3; i++)
+        if (soundPool.Count > 0)
         {
-            if (soundPool.Count > 0)
-            {
-                GameObject soundObject = soundPool.Dequeue();
-                AudioSource audioSource = soundObject.GetComponent<AudioSource>();
+            GameObject soundObject = soundPool.Dequeue();
+            AudioSource audioSource = soundObject.GetComponent<AudioSource>();
 
-                int randomIndex = Random.Range(0, soundClips.Length);
-                audioSource.clip = soundClips[randomIndex];
-                Vector3 randomPosition = player.position + Random.insideUnitSphere * soundRadius;
-                soundObject.transform.position = randomPosition;
-                soundObject.SetActive(true);
+            int randomIndex = Random.Range(0, soundClips.Length);
+            audioSource.clip = soundClips[randomIndex];
+            Vector3 randomPosition = player.position + Random.insideUnitSphere * soundRadius;
+            soundObject.transform.position = randomPosition;
+            soundObject.SetActive(true);
 
-                audioSource.Play();
+            audioSource.Play();
 
-                StartCoroutine(ReturnToPoolAfterPlay(soundObject, audioSource.clip.length));
-            }
-            else
-            {
-                Debug.LogWarning("Sound pool is empty!");
-            }
+            StartCoroutine(ReturnToPoolAfterPlay(soundObject, audioSource));
+        }
+        else
+        {
+            Debug.LogWarning("Sound pool is empty!");
         }
     }
 
-    IEnumerator ReturnToPoolAfterPlay(GameObject soundObject, float delay)
+    IEnumerator ReturnToPoolAfterPlay(GameObject soundObject, AudioSource audioSource)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(audioSource.clip.length);
         soundObject.SetActive(false);
         soundPool.Enqueue(soundObject);
     }
