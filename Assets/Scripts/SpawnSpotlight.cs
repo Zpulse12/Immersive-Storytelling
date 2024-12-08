@@ -133,18 +133,14 @@ public class SpawnSpotlight : MonoBehaviour
                 {
                     Debug.Log("Despawning spotlight, character en cylinder");
                     
-                    // Informeer de NPC voordat we de container vernietigen
+                    GameManager.Instance.IncrementSpotlightsVisited();
+                    
                     NPCBehavior npcBehavior = characterTransform.GetComponent<NPCBehavior>();
                     if (npcBehavior != null)
                     {
                         Debug.Log("NPCBehavior gevonden, EnableWalking aanroepen");
-                        // Haal de NPC uit de container zodat die niet wordt vernietigd
                         characterTransform.parent = null;
                         npcBehavior.EnableWalking();
-                    }
-                    else
-                    {
-                        Debug.LogError("Geen NPCBehavior component gevonden op character!");
                     }
                     
                     Destroy(container);
