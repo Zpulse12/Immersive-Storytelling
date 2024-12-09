@@ -17,8 +17,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-using UnityEngine;
-
 namespace KevinIglesias
 {
     public class BasicMotionsAnimatorStateChanger : StateMachineBehaviour
