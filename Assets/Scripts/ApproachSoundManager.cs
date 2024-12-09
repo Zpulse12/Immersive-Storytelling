@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class ApproachSoundManager : MonoBehaviour
 {
@@ -73,7 +74,7 @@ public class ApproachSoundManager : MonoBehaviour
         foreach (var audioSource in audioSources)
         {
             // Ensure we're only adjusting audio sources that belong to the ApproachSoundManager
-            if (audioSource != permanentAudioSource)  // Exclude PermanentAudioManager's AudioSource
+            if (!audioSource.CompareTag("PermanentAudio"))  // Exclude PermanentAudioManager's AudioSource
             {
                 audioSource.volume = volume;
             }

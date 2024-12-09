@@ -19,6 +19,7 @@ public class PermanentAudioManager : MonoBehaviour
 
         // Create an AudioSource for the permanent sound
         permanentAudioSource = gameObject.AddComponent<AudioSource>();
+        permanentAudioSource.tag = "PermanentAudio";
         permanentAudioSource.volume = permanentSoundVolume;
 
         // Set to 2D sound (not affected by distance)
