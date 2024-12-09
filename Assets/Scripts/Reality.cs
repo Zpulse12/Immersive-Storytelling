@@ -24,8 +24,6 @@ public class Reality : MonoBehaviour
     };
 
     private Coroutine messageCoroutine;
-    private bool messageIsDisplaying = false;
-
     void Start()
     {
         if (player == null)
@@ -106,13 +104,11 @@ public class Reality : MonoBehaviour
 
     private IEnumerator DisplayMessageCoroutine(string message)
     {
-        messageIsDisplaying = true;
         messageText.text = message;
         Debug.Log($"Bericht gezet: {message}");
         yield return new WaitForSeconds(messageDisplayTime);
         messageText.text = "";
         Debug.Log("Bericht verwijderd");
-        messageIsDisplaying = false;
     }
 
     private void UpdateTextPosition()
