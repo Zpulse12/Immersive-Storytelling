@@ -2368,52 +2368,6 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 0}
   m_ButtonPressPoint: 0.5
---- !u!1 &1366829472
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1366829474}
-  - component: {fileID: 1366829473}
-  m_Layer: 0
-  m_Name: PermanentAudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1366829473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1366829472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7574be971b0ef044994b7bd3ac31cb7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sharedAudioClipList: {fileID: 11400000, guid: fb6daeb996c1a074e9a52c04328751e5, type: 2}
-  maxVolume: 0.21
---- !u!4 &1366829474
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1366829472}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.47, y: 1, z: -1.8899999}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1932639033
 GameObject:
   m_ObjectHideFlags: 0
@@ -6938,6 +6892,63 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1001 &2704314682649047355
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2997979777518144511, guid: b32c3c6fde1f8a14b95e13854de418f9, type: 3}
+      propertyPath: m_Name
+      value: PermanentAudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513925660336659518, guid: b32c3c6fde1f8a14b95e13854de418f9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513925660336659518, guid: b32c3c6fde1f8a14b95e13854de418f9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513925660336659518, guid: b32c3c6fde1f8a14b95e13854de418f9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.8899999
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513925660336659518, guid: b32c3c6fde1f8a14b95e13854de418f9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513925660336659518, guid: b32c3c6fde1f8a14b95e13854de418f9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513925660336659518, guid: b32c3c6fde1f8a14b95e13854de418f9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513925660336659518, guid: b32c3c6fde1f8a14b95e13854de418f9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513925660336659518, guid: b32c3c6fde1f8a14b95e13854de418f9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513925660336659518, guid: b32c3c6fde1f8a14b95e13854de418f9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513925660336659518, guid: b32c3c6fde1f8a14b95e13854de418f9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b32c3c6fde1f8a14b95e13854de418f9, type: 3}
 --- !u!137 &2775704482227087666
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -14311,4 +14322,4 @@ SceneRoots:
   - {fileID: 181179938311608955}
   - {fileID: 2095945114}
   - {fileID: 1015683655314407455}
-  - {fileID: 1366829474}
+  - {fileID: 2704314682649047355}

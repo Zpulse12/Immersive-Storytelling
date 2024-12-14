@@ -5989,6 +5989,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6974521556414156316, guid: be3f2b3e6e6cda444ab4b99e08a962b0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2279609546256532297}
+    - targetCorrespondingSourceObject: {fileID: 6974521556414156316, guid: be3f2b3e6e6cda444ab4b99e08a962b0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3563228552299487729}
   m_SourcePrefab: {fileID: 100100000, guid: be3f2b3e6e6cda444ab4b99e08a962b0, type: 3}
 --- !u!1 &7642889894573203619 stripped
 GameObject:
@@ -6013,6 +6016,24 @@ MonoBehaviour:
   walkDistance: 10
   idleController: {fileID: 9100000, guid: 8b09a6f4963d94e47bc0a85776368e29, type: 2}
   walkController: {fileID: 9100000, guid: 718d0dcc44aa30346898747d8c7e496f, type: 2}
+--- !u!114 &3563228552299487729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7642889894573203619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef14325c5716dc34a95f6bdd605bea19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  sharedAudioClips: {fileID: 11400000, guid: fb6daeb996c1a074e9a52c04328751e5, type: 2}
+  maxDistance: 20
+  minDistance: 2
+  maxVolume: 1
+  maxAudioSources: 3
 --- !u!4 &7642889894726768256 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6974521556805826623, guid: be3f2b3e6e6cda444ab4b99e08a962b0, type: 3}
