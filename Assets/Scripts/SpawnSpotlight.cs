@@ -163,23 +163,23 @@ public class SpawnSpotlight : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Spatie ingedrukt");
-            SpawnSpotlightWithCharacter();
-        }
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            Debug.Log("T ingedrukt");
-            SpawnSpotlightWithCharacter();
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Debug.Log("Muis geklikt");
-            SpawnSpotlightWithCharacter();
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     Debug.Log("Spatie ingedrukt");
+        //     SpawnSpotlightWithCharacter();
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.T))
+        // {
+        //     Debug.Log("T ingedrukt");
+        //     SpawnSpotlightWithCharacter();
+        // }
+        //
+        // if (Input.GetMouseButtonDown(0))
+        // {
+        //     Debug.Log("Muis geklikt");
+        //     SpawnSpotlightWithCharacter();
+        // }
     }
 
     public void SpawnNPC(Vector3 position)
