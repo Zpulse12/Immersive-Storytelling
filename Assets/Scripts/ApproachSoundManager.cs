@@ -138,10 +138,6 @@ public class ApproachSoundManager : MonoBehaviour
 
             StartCoroutine(ReturnToPoolAfterPlay(soundObject, audioSource));
         }
-        else
-        {
-            Debug.LogWarning("Sound pool is empty!");
-        }
     }
 
     IEnumerator ReturnToPoolAfterPlay(GameObject soundObject, AudioSource audioSource)

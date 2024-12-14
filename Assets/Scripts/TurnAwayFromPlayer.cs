@@ -1,40 +1,55 @@
-// File: Scripts/TurnAwayFromPlayer.cs
-
-using System.Collections;
 using UnityEngine;
 
 public class TurnAwayFromPlayer : MonoBehaviour
 {
-    public Transform player;
-    public float maxRotationSpeed = 10f;
-    public float accelerationTime = 1f; 
-    private float currentRotationSpeed = 0f;
+    public Transform player; // Reference to the player's transform
+    public float rotationSpeed = 5f; // Rotation speed in degrees per second
+
+    private bool isTurning = false;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("MainCamera"))
         {
-            StartCoroutine(SmoothTurnAway());
+            isTurning = true;
         }
     }
 
-    private IEnumerator SmoothTurnAway()
+    private void OnTriggerExit(Collider other)
     {
-        Vector3 directionAway = (transform.position - player.position).normalized;
+        if (other.CompareTag("MainCamera"))
+        {
+            isTurning = false;
+        }
+    }
+
+    private void Update()
+    {
+        if (isTurning)
+        {
+            TurnAwayFromPlayerSmoothly();
+        }
+    }
+
+    private void TurnAwayFromPlayerSmoothly()
+    {
+        // Calculate the direction away from the player
+        Vector3 directionAway = transform.position - player.position;
+
+        // Ignore the vertical component to restrict rotation to the Y-axis
+        directionAway.y = 0f;
+
+        // Ensure the direction vector is normalized
+        directionAway.Normalize();
+
+        // Calculate the target rotation to face away from the player
         Quaternion targetRotation = Quaternion.LookRotation(directionAway);
 
-        float elapsedTime = 0f;
-
-        while (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f)
-        {
-            elapsedTime += Time.deltaTime;
-            currentRotationSpeed = Mathf.SmoothStep(0f, maxRotationSpeed, elapsedTime / accelerationTime);
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * currentRotationSpeed);
-
-            yield return null;
-        }
-
-        currentRotationSpeed = 0f;
+        // Smoothly interpolate the current rotation towards the target rotation
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation, 
+            targetRotation, 
+            rotationSpeed * Time.deltaTime
+        );
     }
 }
