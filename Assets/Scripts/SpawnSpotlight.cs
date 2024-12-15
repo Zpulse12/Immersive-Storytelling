@@ -34,6 +34,9 @@ public class SpawnSpotlight : MonoBehaviour
     public float despawnDelay = 5f;
     public Transform player;
 
+    private int spawnCount = 0;  
+    private const int MAX_SPAWNS = 4;  
+
     void Start()
     {
         Debug.Log("Script is gestart");
@@ -49,6 +52,12 @@ public class SpawnSpotlight : MonoBehaviour
 
     void SpawnSpotlightWithCharacter()
     {
+        if (spawnCount >= MAX_SPAWNS)
+        {
+            Debug.Log("Maximum aantal spawns bereikt!");
+            return;
+        }
+
         Debug.Log("SpawnSpotlightWithCharacter aangeroepen");
 
         float randomX = Random.Range(-spawnAreaWidth / 2, spawnAreaWidth / 2);
