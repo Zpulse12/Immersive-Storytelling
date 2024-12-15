@@ -31135,24 +31135,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7642889894573203619, guid: 687d2fc85d97f954fa97716bf2967f0b, type: 3}
   m_PrefabInstance: {fileID: 3391444109958588096}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &756989155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 756989152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e0e649e8e6ebc146a9fa14dc7385e37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1639208523}
-  safeDistance: 3
-  messageText: {fileID: 1339538223}
-  messageDisplayTime: 3
-  textDistance: 2
-  textHeight: 1.6
 --- !u!4 &757063182 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3186338581851060671, guid: 9c8fae5eecdacf14d9ed2944f332564c, type: 3}
@@ -90602,6 +90584,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2259803763479581448, guid: 687d2fc85d97f954fa97716bf2967f0b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1639208523}
+    - target: {fileID: 2259803763479581448, guid: 687d2fc85d97f954fa97716bf2967f0b, type: 3}
+      propertyPath: messageText
+      value: 
+      objectReference: {fileID: 1339538223}
     - target: {fileID: 7642889894573203619, guid: 687d2fc85d97f954fa97716bf2967f0b, type: 3}
       propertyPath: m_Name
       value: Sabrina
@@ -90649,10 +90639,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7642889894573203619, guid: 687d2fc85d97f954fa97716bf2967f0b, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 756989155}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 687d2fc85d97f954fa97716bf2967f0b, type: 3}
 --- !u!1001 &7866848976660693317
 PrefabInstance:
