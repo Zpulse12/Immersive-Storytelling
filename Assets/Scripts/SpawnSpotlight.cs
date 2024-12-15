@@ -57,12 +57,12 @@ public class SpawnSpotlight : MonoBehaviour
         Vector3 basePosition = spawnAroundPlayer ? player.position : transform.position;
         Vector3 spawnPosition = basePosition + new Vector3(randomX, characterHeight, randomZ);
 
-        // Kies een willekeurige prefab
-        int randomIndex = Random.Range(0, npcPrefabs.Length);
-        GameObject character = Instantiate(npcPrefabs[randomIndex], spawnPosition, Quaternion.identity);
+        GameObject character = Instantiate(npcPrefabs[currentPrefabIndex], spawnPosition, Quaternion.identity);
         character.transform.localScale = characterScale;
 
-        Debug.Log($"Spawned prefab {randomIndex}");
+        Debug.Log($"Spawned prefab {currentPrefabIndex}");
+        
+        currentPrefabIndex = (currentPrefabIndex + 1) % npcPrefabs.Length;
 
         // Spawn spotlight
         Light spotlight = Instantiate(spotlightPrefab);
@@ -159,27 +159,6 @@ public class SpawnSpotlight : MonoBehaviour
     {
         yield return new WaitForSeconds(respawnDelay);
         SpawnSpotlightWithCharacter();
-    }
-
-    void Update()
-    {
-        // if (Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     Debug.Log("Spatie ingedrukt");
-        //     SpawnSpotlightWithCharacter();
-        // }
-        //
-        // if (Input.GetKeyDown(KeyCode.T))
-        // {
-        //     Debug.Log("T ingedrukt");
-        //     SpawnSpotlightWithCharacter();
-        // }
-        //
-        // if (Input.GetMouseButtonDown(0))
-        // {
-        //     Debug.Log("Muis geklikt");
-        //     SpawnSpotlightWithCharacter();
-        // }
     }
 
     public void SpawnNPC(Vector3 position)

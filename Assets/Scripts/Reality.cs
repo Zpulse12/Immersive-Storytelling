@@ -24,6 +24,8 @@ public class Reality : MonoBehaviour
     };
 
     private Coroutine messageCoroutine;
+    private bool canShowMessage = true;
+
     void Start()
     {
         if (player == null)
@@ -35,13 +37,15 @@ public class Reality : MonoBehaviour
 
         if (messageText == null)
         {
-            Debug.LogError("Message Text is niet toegewezen! Voeg een UI Text element toe.");
+            Debug.LogError("Message Text is niet toegewezen!");
             enabled = false;
             return;
         }
 
         Canvas canvas = messageText.GetComponentInParent<Canvas>();
         canvas.renderMode = RenderMode.WorldSpace;
+        
+        canvas.transform.localScale = new Vector3(0.008f, 0.008f, 0.008f);
         
         messageText.text = "";
     }
@@ -81,7 +85,12 @@ public class Reality : MonoBehaviour
 
     private void InteractWithHuman(GameObject human)
     {
-        DisplayRealityMessage();
+        if (canShowMessage)
+        {
+            DisplayRealityMessage();
+            canShowMessage = false;
+            StartCoroutine(ResetMessageTimer());
+        }
     }
 
     private void DisplayRealityMessage()
@@ -109,6 +118,12 @@ public class Reality : MonoBehaviour
         yield return new WaitForSeconds(messageDisplayTime);
         messageText.text = "";
         Debug.Log("Bericht verwijderd");
+    }
+
+    private IEnumerator ResetMessageTimer()
+    {
+        yield return new WaitForSeconds(10f);
+        canShowMessage = true;
     }
 
     private void UpdateTextPosition()

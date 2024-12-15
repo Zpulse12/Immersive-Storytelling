@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 
 public class DespawnHuman : MonoBehaviour
 {
@@ -9,8 +9,12 @@ public class DespawnHuman : MonoBehaviour
     public float safeDistance = 3f;
     public Text messageText;
     public float messageDisplayTime = 3f;
+    public float textDistance = 2f;
+    public float textHeight = 1.6f;
 
-    private bool hasDespawned = false;
+    private bool canShowMessage = true;
+    private Coroutine messageCoroutine;
+    private int currentMessageIndex = 0;
 
     private List<string> depressionMessages = new List<string>
     {
@@ -21,51 +25,63 @@ public class DespawnHuman : MonoBehaviour
         "Zelfs in een kamer vol mensen voel ik me alleen..."
     };
 
-    private Coroutine messageCoroutine;
-
     void Start()
     {
         if (player == null)
         {
             Debug.LogError("Player Transform is niet toegewezen!");
+            enabled = false;
+            return;
         }
 
         if (messageText == null)
         {
-            Debug.LogError("Message Text is niet toegewezen! Voeg een UI Text element toe.");
+            Debug.LogError("Message Text is niet toegewezen!");
+            enabled = false;
+            return;
         }
+
+        Canvas canvas = messageText.GetComponentInParent<Canvas>();
+        canvas.renderMode = RenderMode.WorldSpace;
+        canvas.transform.localScale = new Vector3(0.008f, 0.008f, 0.008f);
+        messageText.text = "";
     }
 
     void Update()
     {
-        if (player == null || hasDespawned)
-        {
-            return;
-        }
+        if (player == null) return;
 
-        Vector3 playerPosition = player.position;
-        Vector3 cubePosition = transform.position;
-        float distanceToPlayer = Vector3.Distance(cubePosition, playerPosition);
+        UpdateTextPosition();
 
-        if (distanceToPlayer < safeDistance)
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        if (distanceToPlayer < safeDistance && canShowMessage)
         {
-            DespawnCube();
+            DisplayMessage();
+            canShowMessage = false;
+            StartCoroutine(ResetMessageTimer());
         }
     }
 
-    private void DespawnCube()
+    private void UpdateTextPosition()
     {
-        if (hasDespawned)
+        Canvas canvas = messageText.GetComponentInParent<Canvas>();
+        if (canvas != null)
         {
-            return;
+            Camera mainCamera = Camera.main;
+            if (mainCamera != null)
+            {
+                Vector3 position = mainCamera.transform.position + 
+                                 mainCamera.transform.forward * textDistance;
+                
+                canvas.transform.position = position;
+                canvas.transform.LookAt(mainCamera.transform);
+                canvas.transform.Rotate(0, 180, 0);
+            }
         }
-
-        hasDespawned = true;
-        Debug.Log($"{gameObject.name}: Speler te dichtbij! Kubus despawnt.");
-        DisplayDepressionMessage();
     }
 
-    private void DisplayDepressionMessage()
+    private void DisplayMessage()
     {
         if (messageText != null)
         {
@@ -74,7 +90,9 @@ public class DespawnHuman : MonoBehaviour
                 StopCoroutine(messageCoroutine);
             }
 
-            string message = depressionMessages[Random.Range(0, depressionMessages.Count)];
+            string message = depressionMessages[currentMessageIndex];
+            currentMessageIndex = (currentMessageIndex + 1) % depressionMessages.Count;
+            
             messageCoroutine = StartCoroutine(DisplayMessageCoroutine(message));
         }
     }
@@ -82,15 +100,15 @@ public class DespawnHuman : MonoBehaviour
     private IEnumerator DisplayMessageCoroutine(string message)
     {
         messageText.text = message;
-        Debug.Log("Start displaying message: " + message);
         yield return new WaitForSeconds(messageDisplayTime);
         messageText.text = "";
-        Debug.Log("Message cleared after waiting: " + messageDisplayTime);
-
-        // Vernietig het object nadat het bericht is weergegeven
-        Destroy(gameObject);
     }
 
+    private IEnumerator ResetMessageTimer()
+    {
+        yield return new WaitForSeconds(10f);
+        canShowMessage = true;
+    }
 }
 
 
