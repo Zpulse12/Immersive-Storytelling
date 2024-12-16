@@ -13,6 +13,7 @@ public class NPCSpawner : MonoBehaviour
     public int requiredSpotlights = 4;
 
     [Header("NPC Animation Controllers")]
+    public RuntimeAnimatorController idleController;
     public RuntimeAnimatorController walkController;
 
     void Start()
@@ -72,14 +73,11 @@ public class NPCSpawner : MonoBehaviour
             GameObject npc = Instantiate(npcPrefabs[Random.Range(0, npcPrefabs.Length)], spawnPosition, Quaternion.identity);
             
             NPCBehavior npcBehavior = npc.AddComponent<NPCBehavior>();
+            npcBehavior.idleController = idleController;
             npcBehavior.walkController = walkController;
             npcBehavior.walkSpeed = moveSpeed;
             npcBehavior.walkDistance = spawnRadius * 2;
             
-            if (npcBehavior.GetComponent<Animator>())
-            {
-                npcBehavior.GetComponent<Animator>().runtimeAnimatorController = walkController;
-            }
             npcBehavior.EnableWalking();
         }
     }
