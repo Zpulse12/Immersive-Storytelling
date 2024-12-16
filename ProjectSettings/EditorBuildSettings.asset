@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Haitam_Test.unity
-    guid: 315e2fbba0d716944b0a3ed2bc4706ea
+    path: Assets/Scenes/Max_Optimize 1.unity
+    guid: 5dd2727dc7ae20c4c84ab863805aa75d
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 142a89ffd26915b46a136a674e88ec5a, type: 2}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 26dbcb8726efac7448805e2f0fbcec24, type: 2}
