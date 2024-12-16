@@ -12,9 +12,8 @@ public class NPCSpawner : MonoBehaviour
     public float despawnDistance = 2f;  
     public int requiredSpotlights = 4;
 
-    [Header("NPC Animation Controllers")]
-    public RuntimeAnimatorController idleController;
-    public RuntimeAnimatorController walkController;
+    [Header("Animation")]
+    public RuntimeAnimatorController walkController;  // Alleen walk animatie controller
 
     void Start()
     {
@@ -72,13 +71,14 @@ public class NPCSpawner : MonoBehaviour
 
             GameObject npc = Instantiate(npcPrefabs[Random.Range(0, npcPrefabs.Length)], spawnPosition, Quaternion.identity);
             
-            NPCBehavior npcBehavior = npc.AddComponent<NPCBehavior>();
-            npcBehavior.idleController = idleController;
-            npcBehavior.walkController = walkController;
-            npcBehavior.walkSpeed = moveSpeed;
-            npcBehavior.walkDistance = spawnRadius * 2;
-            
-            npcBehavior.EnableWalking();
+            ChasePlayer chaseComponent = npc.AddComponent<ChasePlayer>();
+            chaseComponent.Initialize(player, moveSpeed, despawnDistance, spawnRadius);
+
+            Animator animator = npc.GetComponent<Animator>();
+            if (animator != null && walkController != null)
+            {
+                animator.runtimeAnimatorController = walkController;
+            }
         }
     }
 } 
