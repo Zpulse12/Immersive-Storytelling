@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae83a1bc-057f-4c1f-a5fc-3c19645fc00e" name="Changes" comment="" />
+    <list default="true" id="ae83a1bc-057f-4c1f-a5fc-3c19645fc00e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Max_Optimize 1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Max_Optimize 1.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,6 +16,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock://C:/Users/robbe/Documents/AP-J4/MR Project/kaas/Assets/Scenes/Max_Optimize 1.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/robbe/Documents/AP-J4/MR Project/kaas/Assets/Scenes/Max_Optimize 1.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/robbe/Documents/AP-J4/MR Project/kaas/ProjectSettings/ProjectSettings.asset" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 5
@@ -22,7 +34,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "proximity-audio-prefabs",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -86,13 +98,14 @@
       <updated>1734343545931</updated>
       <workItem from="1734343550079" duration="27000" />
       <workItem from="1734343838633" duration="8000" />
-      <workItem from="1734343856082" duration="115000" />
+      <workItem from="1734343856082" duration="855000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityProjectDiscoverer">
     <option name="hasUnityReference" value="true" />
