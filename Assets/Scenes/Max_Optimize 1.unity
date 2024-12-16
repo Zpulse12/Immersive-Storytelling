@@ -204,6 +204,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1712523392}
     - target: {fileID: 8470683176259073240, guid: 550b9c999f25cb24796fbd987c3abb9b, type: 3}
+      propertyPath: cylinderMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: f71520beeafc3f740aa1d80c2ff2fd52, type: 2}
+    - target: {fileID: 8470683176259073240, guid: 550b9c999f25cb24796fbd987c3abb9b, type: 3}
       propertyPath: npcPrefabs.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -14521,7 +14525,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.12766999, g: 0.15059234, b: 0.1792453, a: 1}
-  m_Intensity: 6
+  m_Intensity: 10
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
