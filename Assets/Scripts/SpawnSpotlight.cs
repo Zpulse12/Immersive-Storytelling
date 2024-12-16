@@ -52,6 +52,12 @@ public class SpawnSpotlight : MonoBehaviour
 
     void SpawnSpotlightWithCharacter()
     {
+        if (GameManager.Instance.SpotlightsVisited >= 4)
+        {
+            Debug.Log("Maximum aantal spotlights (4) is al bezocht, geen nieuwe spawn.");
+            return;
+        }
+
         if (spawnCount >= MAX_SPAWNS)
         {
             Debug.Log("Maximum aantal spawns bereikt!");
@@ -166,6 +172,12 @@ public class SpawnSpotlight : MonoBehaviour
 
     IEnumerator RespawnCoroutine()
     {
+        if (GameManager.Instance.SpotlightsVisited >= 4)
+        {
+            Debug.Log("Maximum aantal spotlights (4) is al bezocht, geen respawn meer.");
+            yield break;
+        }
+
         yield return new WaitForSeconds(respawnDelay);
         SpawnSpotlightWithCharacter();
     }
