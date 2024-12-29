@@ -1,11 +1,10 @@
 using UnityEngine;
-using System.Collections;
 
 public class PermanentAudioManager : MonoBehaviour
 {
     [Header("Shared Audio Settings")]
-    public SharedAudioClips sharedAudioClipList; // Reference to the ScriptableObject holding the clips
-    public float maxVolume = 1.0f; // Maximum volume for the audio clips
+    public SharedAudioClips sharedAudioClipList;
+    public float maxVolume = 1.0f;
 
     private AudioSource audioSource;
 

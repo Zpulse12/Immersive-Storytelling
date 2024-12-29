@@ -7,6 +7,7 @@ TagManager:
   - Human
   - Person
   - PermanentAudio
+  - Fence
   layers:
   - Default
   - TransparentFX
