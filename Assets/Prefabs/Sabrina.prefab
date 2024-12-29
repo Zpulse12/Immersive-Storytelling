@@ -6651,6 +6651,7 @@ GameObject:
   - component: {fileID: 2259803763479581448}
   - component: {fileID: 7642889894573203618}
   - component: {fileID: 2279609546256532297}
+  - component: {fileID: 7760230843644219601}
   m_Layer: 0
   m_Name: Sabrina
   m_TagString: Untagged
@@ -6779,6 +6780,20 @@ MonoBehaviour:
   walkDistance: 10
   idleController: {fileID: 9100000, guid: 8b09a6f4963d94e47bc0a85776368e29, type: 2}
   walkController: {fileID: 9100000, guid: 718d0dcc44aa30346898747d8c7e496f, type: 2}
+--- !u!114 &7760230843644219601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7642889894573203619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b912909cf6432f4682191ec0528bf13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  rotationSpeed: 5
 --- !u!1 &7642889894589674785
 GameObject:
   m_ObjectHideFlags: 0
