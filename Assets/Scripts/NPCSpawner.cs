@@ -2,83 +2,101 @@ using UnityEngine;
 
 public class NPCSpawner : MonoBehaviour
 {
+    [Header("NPC Settings")]
     public GameObject[] npcPrefabs;
     public Transform player;
-    
+
     [Header("Spawn Settings")]
     public int numberOfNPCs = 8;
-    public float spawnRadius = 15f;    
-    public float moveSpeed = 3f;       
-    public float despawnDistance = 2f;  
+    public float spawnRadius = 15f;
+    public float moveSpeed = 3f;
+    public float stopWalkingDistance = 5f;
     public int requiredSpotlights = 4;
 
     [Header("Animation")]
-    public RuntimeAnimatorController walkController;  // Alleen walk animatie controller
+    public RuntimeAnimatorController walkController;
+    public RuntimeAnimatorController idleController;
 
     void Start()
     {
         if (player == null)
         {
-            Debug.LogError("Wijs de Player toe in de inspector!");
+            Debug.LogError("Player reference is missing!");
             return;
         }
-        Debug.Log("NPCSpawner gestart, wacht op " + requiredSpotlights + " spotlights");
     }
 
     void Update()
     {
-        if (GameManager.Instance == null)
+        var gameManager = GameManager.Instance;
+        if (gameManager == null)
         {
-            Debug.LogError("Geen GameManager gevonden!");
+            Debug.LogError("GameManager instance is missing!");
             return;
         }
 
-        Debug.Log($"Huidige spotlights bezocht: {GameManager.Instance.SpotlightsVisited} / {requiredSpotlights}");
-        
-        if (GameManager.Instance.SpotlightsVisited >= requiredSpotlights)
+        if (gameManager.SpotlightsVisited >= requiredSpotlights)
         {
-            Debug.Log("Genoeg spotlights bezocht, spawning NPCs...");
-            SpawnNPCsInCircle();
-            enabled = false; 
+            SpawnNPCs();
+            enabled = false; // Disable script after spawning NPCs
         }
     }
 
-    void SpawnNPCsInCircle()
+    private void SpawnNPCs()
     {
         if (npcPrefabs == null || npcPrefabs.Length == 0)
         {
-            Debug.LogError("Geen NPC prefabs toegewezen!");
+            Debug.LogError("NPC prefabs are not assigned!");
             return;
         }
 
-        Debug.Log($"Spawning {numberOfNPCs} NPCs in cirkel...");
         float angleStep = 360f / numberOfNPCs;
-        
         for (int i = 0; i < numberOfNPCs; i++)
         {
-            float angle = i * angleStep;
-            Vector3 spawnPosition = player.position + Quaternion.Euler(0, angle, 0) * Vector3.forward * spawnRadius;
-            
-            RaycastHit hit;
-            if (Physics.Raycast(spawnPosition + Vector3.up * 10f, Vector3.down, out hit))
-            {
-                spawnPosition.y = hit.point.y;
-            }
-            else
-            {
-                spawnPosition.y = 0f;
-            }
-
-            GameObject npc = Instantiate(npcPrefabs[Random.Range(0, npcPrefabs.Length)], spawnPosition, Quaternion.identity);
-            
-            ChasePlayer chaseComponent = npc.AddComponent<ChasePlayer>();
-            chaseComponent.Initialize(player, moveSpeed, despawnDistance, spawnRadius);
-
-            Animator animator = npc.GetComponent<Animator>();
-            if (animator != null && walkController != null)
-            {
-                animator.runtimeAnimatorController = walkController;
-            }
+            Vector3 spawnPosition = CalculateSpawnPosition(i * angleStep);
+            GameObject npc = InstantiateRandomNPC(spawnPosition);
+            ConfigureNPC(npc);
         }
     }
-} 
+
+    private Vector3 CalculateSpawnPosition(float angle)
+    {
+        Vector3 offset = Quaternion.Euler(0, angle, 0) * Vector3.forward * spawnRadius;
+        Vector3 spawnPosition = player.position + offset;
+
+        if (Physics.Raycast(spawnPosition + Vector3.up * 10f, Vector3.down, out RaycastHit hit))
+        {
+            spawnPosition.y = hit.point.y; // Align to ground
+        }
+
+        return spawnPosition;
+    }
+
+    private GameObject InstantiateRandomNPC(Vector3 position)
+    {
+        int randomIndex = Random.Range(0, npcPrefabs.Length);
+        return Instantiate(npcPrefabs[randomIndex], position, Quaternion.identity);
+    }
+
+    private void ConfigureNPC(GameObject npc)
+    {
+        // Add ChasePlayer behavior
+        var chaseComponent = npc.AddComponent<ChasePlayer>();
+        chaseComponent.Initialize(player, moveSpeed, idleController);
+
+        // Assign walk animation
+        if (npc.TryGetComponent(out Animator animator) && walkController != null)
+        {
+            animator.runtimeAnimatorController = walkController;
+        }
+
+        // Add trigger collider
+        var triggerCollider = npc.AddComponent<SphereCollider>();
+        triggerCollider.isTrigger = true;
+        triggerCollider.radius = stopWalkingDistance;
+        
+        // Add Rigidbody for collision detection
+        var npcRigidBody = npc.AddComponent<Rigidbody>();
+        npcRigidBody.isKinematic = true;
+    }
+}

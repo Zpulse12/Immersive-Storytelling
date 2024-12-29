@@ -1,37 +1,54 @@
+using System;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class ChasePlayer : MonoBehaviour
 {
-    private Transform player;
-    private float moveSpeed;
-    private float despawnDistance;
+    private Transform _player;
+    private float _moveSpeed;
+    private bool _hasStopped = false;
+    private RuntimeAnimatorController _idleController;
 
-    public void Initialize(Transform playerTransform, float speed, float destroyDistance, float radius)
+    public void Initialize(Transform playerTransform, float speed, RuntimeAnimatorController idleController)
     {
-        player = playerTransform;
-        moveSpeed = speed;
-        despawnDistance = destroyDistance;
+        _player = playerTransform;
+        _moveSpeed = speed;
+        _idleController = idleController;
     }
 
     void Update()
     {
-        if (player == null) return;
+        if (!_player || _hasStopped) return;
 
-        // Bereken richting naar speler
-        Vector3 directionToPlayer = (player.position - transform.position).normalized;
-        directionToPlayer.y = 0; // Behoud huidige hoogte
-
-        // Beweeg naar speler
-        transform.position += directionToPlayer * moveSpeed * Time.deltaTime;
+        // Calculate direction to player
+        Vector3 directionToPlayer = (_player.position - transform.position).normalized;
         
-        // Kijk naar speler
-        transform.LookAt(player);
+        // Set Y to 0 to ensure the object moves on the X and Z plane only
+        directionToPlayer.y = 0;
 
-        // Check voor despawn
-        float distance = Vector3.Distance(transform.position, player.position);
-        if (distance <= despawnDistance)
+        // Move towards player (X and Z axis only)
+        transform.position += directionToPlayer * (_moveSpeed * Time.deltaTime);
+
+        // Make the object face the player (only rotate on Y axis)
+        Vector3 targetDirection = new Vector3(directionToPlayer.x, 0, directionToPlayer.z);
+        if (targetDirection != Vector3.zero)
         {
-            Destroy(gameObject);
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _moveSpeed);
         }
     }
-} 
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("MainCamera"))
+        {
+            _hasStopped = true;
+            var animator = gameObject.GetComponent<Animator>();
+            if (animator)
+            {
+                animator.runtimeAnimatorController = _idleController;
+            }
+            Debug.LogWarning("Stopped chasing player");
+        }
+    }
+}
