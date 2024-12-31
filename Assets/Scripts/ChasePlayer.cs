@@ -8,12 +8,15 @@ public class ChasePlayer : MonoBehaviour
     private float _moveSpeed;
     private bool _hasStopped = false;
     private RuntimeAnimatorController _idleController;
+    private PlayerSpotlight _playerSpotlight;
 
     public void Initialize(Transform playerTransform, float speed, RuntimeAnimatorController idleController)
     {
         _player = playerTransform;
         _moveSpeed = speed;
         _idleController = idleController;
+        
+        _playerSpotlight = FindObjectOfType<PlayerSpotlight>();
     }
 
     void Update()
@@ -40,7 +43,7 @@ public class ChasePlayer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("MainCamera"))
+        if (other.CompareTag("MainCamera") && !_hasStopped)
         {
             _hasStopped = true;
             var animator = gameObject.GetComponent<Animator>();
@@ -48,7 +51,13 @@ public class ChasePlayer : MonoBehaviour
             {
                 animator.runtimeAnimatorController = _idleController;
             }
-            Debug.LogWarning("Stopped chasing player");
+            
+            if (_playerSpotlight != null)
+            {
+                _playerSpotlight.FreezePlayerWithSpotlight();
+            }
+            
+            Debug.LogWarning("Stopped chasing player and triggered spotlight");
         }
     }
 }
