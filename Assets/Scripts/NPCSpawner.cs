@@ -66,7 +66,7 @@ public class NPCSpawner : MonoBehaviour
 
         if (Physics.Raycast(spawnPosition + Vector3.up * 10f, Vector3.down, out RaycastHit hit))
         {
-            spawnPosition.y = hit.point.y; // Align to ground
+            spawnPosition.y = hit.point.y;
         }
 
         return spawnPosition;
@@ -75,7 +75,11 @@ public class NPCSpawner : MonoBehaviour
     private GameObject InstantiateRandomNPC(Vector3 position)
     {
         int randomIndex = Random.Range(0, npcPrefabs.Length);
-        return Instantiate(npcPrefabs[randomIndex], position, Quaternion.identity);
+        GameObject npc = Instantiate(npcPrefabs[randomIndex], position, Quaternion.identity);
+        
+        npc.transform.localScale *= 1.5f;
+
+        return npc;
     }
 
     private void ConfigureNPC(GameObject npc)
