@@ -9,8 +9,18 @@ public class PlayerSpotlight : MonoBehaviour
     public float spotlightIntensity = 8f;
     public float spotAngle = 30f;
     public Color spotlightColor = Color.white;
+    private SceneChanger sceneChanger;
 
     private Light currentSpotlight;
+    
+    void Start()
+    {
+        sceneChanger = FindObjectOfType<SceneChanger>();
+        if (sceneChanger == null)
+        {
+            Debug.LogError("SceneChanger object is missing!");
+        }
+    }
 
     public void FreezePlayerWithSpotlight()
     {
@@ -40,5 +50,10 @@ public class PlayerSpotlight : MonoBehaviour
             currentSpotlight.spotAngle = spotAngle;
             currentSpotlight.color = spotlightColor;
         }
+    }
+    
+    private void ToNextScene()
+    {
+        sceneChanger.LoadNextScene();
     }
 } 
