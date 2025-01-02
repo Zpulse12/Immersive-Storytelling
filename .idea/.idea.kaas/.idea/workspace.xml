@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae83a1bc-057f-4c1f-a5fc-3c19645fc00e" name="Changes" comment="">
+    <list default="true" id="ae83a1bc-057f-4c1f-a5fc-3c19645fc00e" name="Changes" comment="Remove bad import">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.kaas/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.kaas/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChasePlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ChasePlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/XR/Resources/XRSimulationRuntimeSettings.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/XR/Resources/XRSimulationRuntimeSettings.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/XR/UserSimulationSettings/Resources/XRSimulationPreferences.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/XR/UserSimulationSettings/Resources/XRSimulationPreferences.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,7 +40,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "proximity-audio-prefabs",
+    "git-widget-placeholder": "robbe-lighting",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -100,7 +105,17 @@
       <workItem from="1734343550079" duration="27000" />
       <workItem from="1734343838633" duration="8000" />
       <workItem from="1734343856082" duration="1354000" />
+      <workItem from="1735833675084" duration="515000" />
     </task>
+    <task id="LOCAL-00001" summary="Remove bad import">
+      <option name="closed" value="true" />
+      <created>1735833710027</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1735833710027</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,5 +131,7 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Remove bad import" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove bad import" />
   </component>
 </project>
