@@ -9,14 +9,20 @@ public class ChasePlayer : MonoBehaviour
     private bool _hasStopped = false;
     private RuntimeAnimatorController _idleController;
     private PlayerSpotlight _playerSpotlight;
+    
+    public event Action OnStopped; // Event to notify when stopped
+    public bool HasStopped => _hasStopped; // Public property to check stopped status
 
     public void Initialize(Transform playerTransform, float speed, RuntimeAnimatorController idleController)
     {
         _player = playerTransform;
         _moveSpeed = speed;
         _idleController = idleController;
-        
+
         _playerSpotlight = FindObjectOfType<PlayerSpotlight>();
+
+        // Register with GameManager
+        GameManager.Instance.RegisterChasePlayer(this);
     }
 
     void Update()
@@ -46,18 +52,23 @@ public class ChasePlayer : MonoBehaviour
         if (other.CompareTag("MainCamera") && !_hasStopped)
         {
             _hasStopped = true;
+
             var animator = gameObject.GetComponent<Animator>();
             if (animator)
             {
                 animator.runtimeAnimatorController = _idleController;
             }
-            
+
             if (_playerSpotlight != null)
             {
                 _playerSpotlight.FreezePlayerWithSpotlight();
             }
-            
+
             Debug.LogWarning("Stopped chasing player and triggered spotlight");
+
+            // Notify listeners that this object has stopped
+            OnStopped?.Invoke();
         }
     }
+    
 }
