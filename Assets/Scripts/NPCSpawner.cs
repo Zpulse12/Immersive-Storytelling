@@ -78,6 +78,11 @@ public class NPCSpawner : MonoBehaviour
         GameObject npc = Instantiate(npcPrefabs[randomIndex], position, Quaternion.identity);
         
         npc.transform.localScale *= 1.5f;
+        ProximityAudio proximityAudio = npc.GetComponent<ProximityAudio>();
+        if (proximityAudio != null)
+        {
+            proximityAudio.enabled = false;
+        }
 
         return npc;
     }
