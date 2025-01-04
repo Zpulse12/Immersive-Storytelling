@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -7,6 +8,7 @@ public class XRButtonInteraction : MonoBehaviour
 {
     private static readonly int ButtonPressed = Animator.StringToHash("ButtonPressed");
     public Animator animator;
+    public GameObject endText;
 
     private void Awake()
     {
@@ -34,5 +36,15 @@ public class XRButtonInteraction : MonoBehaviour
             device.SendHapticImpulse(0, 0.5f, 0.2f); // Channel, intensity, duration
         }
         
+        if (endText != null)
+        {
+            StartCoroutine(ShowEndTextAfterDelay(1.2f));
+        }
+    }
+    
+    private IEnumerator ShowEndTextAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        endText.SetActive(true);
     }
 }
